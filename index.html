@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d151b">
+  <title>Signal Room — adaptive agent demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header><div class="brand"><span class="brand-symbol">S<span>↗</span></span><div><strong>SIGNAL ROOM</strong><small>Sam AI Lab · event-driven agent demo</small></div></div><div class="header-right"><span class="pulse"></span> SIMULATED RUN <i></i> STATE SAVED IN THIS BROWSER</div></header>
+    <main class="layout">
+      <aside class="left-rail">
+        <div class="eyebrow">01 / MISSION</div>
+        <h1>Reality<br>changed.</h1>
+        <p>The agent should change its plan only when a verified signal contradicts an assumption.</p>
+        <div class="scenario-switch" aria-label="Demo missions"><button class="selected" data-scenario="supply" type="button"><span>01</span><strong>Medical kit shipment</strong><small>Supplier stockout</small></button><button data-scenario="release" type="button"><span>02</span><strong>Canary release</strong><small>Error-rate spike</small></button></div>
+        <div class="rail-bottom">PLAN → SIMULATE → OBSERVE → RE-EVALUATE<br>No real shipments or deployments.</div>
+      </aside>
+      <section class="workspace" aria-label="Adaptive run">
+        <div class="workspace-head"><div><div class="eyebrow">02 / RUN IN PROGRESS</div><h2 id="mission-title">Medical kit shipment</h2><p id="mission-subtitle">Ship a synthetic training kit to a clinic</p></div><div id="run-status" class="run-status">ACTIVE</div></div>
+        <div class="toolbar"><button id="step" class="primary" type="button">Simulate next step <span>→</span></button><button id="change" class="event-button" type="button">Inject verified change <span>↯</span></button><button id="rumor" class="secondary" type="button">Inject false rumor</button><button id="secondary-change" class="secondary" type="button" hidden>Lose alternate supplier</button></div>
+        <div class="columns"><div class="current-plan"><div class="column-head"><div class="eyebrow">03 / CURRENT PLAN</div><span id="plan-version">VERSION 0</span></div><h3 id="plan-name">Primary supplier route</h3><div id="assumptions" class="assumptions"></div><ol id="plan-steps" class="plan-steps"></ol></div><div class="previous-plan"><div class="column-head"><div class="eyebrow">04 / BEFORE</div><span id="previous-version">ORIGINAL PLAN</span></div><h3 id="previous-name">Primary supplier route</h3><ol id="previous-steps" class="previous-steps"></ol><div class="baseline" id="baseline"></div></div></div>
+        <div class="revision" id="revision"><div class="eyebrow">05 / WHY I CHANGED MY MIND</div><strong id="revision-title">Waiting for a changed-world signal.</strong><p id="revision-reason">The first simulated step is complete. Inject a verified change to compare the adaptive route with the original plan.</p></div>
+      </section>
+      <aside class="right-rail" aria-label="Event trace"><div class="eyebrow">06 / EVENT TRACE</div><h3>What the agent<br>observed.</h3><p>Revisions are triggered by new facts, not a timer. Unverified claims are quarantined.</p><ol id="trace" class="trace"></ol><div class="right-bottom"><span>LOCAL CHECKPOINT</span><strong id="save-state">Saved</strong><button id="reset" type="button">Reset this run ↗</button></div></aside>
+    </main>
+    <footer>SIGNAL ROOM / 2026 <span>DOO · THE ADAPTIVE AGENT</span> <span>DETERMINISTIC POLICY · NO LIVE ACTIONS</span></footer>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
