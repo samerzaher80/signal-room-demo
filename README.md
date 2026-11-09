@@ -50,3 +50,5 @@ Adaptive agents will be judged less by how often they rewrite a plan than by whe
 ## Scope and provenance
 
 Built as a fresh public challenge demo by Sameer S. Najm / Sam AI Lab with Codex assistance. Scenarios, suppliers, telemetry, approvals, and event verification labels are synthetic. There are no private repositories, client records, clinical actions, real shipments, or deployment connectors in this build.
+
+Inject the verified change (version 2), then deliver older evidence (version 1). The trace records the stale event without replacing the accepted fact. Versions represent synthetic evidence order per fact.

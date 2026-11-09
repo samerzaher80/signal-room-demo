@@ -12,7 +12,7 @@ export const scenarios = {
         { id: 'ship', label: 'Release shipment', needsReview: true }
       ]
     },
-    change: { id: 'supplier-stockout', fact: 'primaryStock', value: false, source: 'supplier inventory event', verified: true },
+    change: { id: 'supplier-stockout', fact: 'primaryStock', value: false, source: 'supplier inventory event', verified: true, version: 2 },
     rumor: { id: 'supplier-rumor', fact: 'primaryStock', value: false, source: 'unverified chat rumor', verified: false }
   },
   release: {
@@ -28,7 +28,7 @@ export const scenarios = {
         { id: 'promote', label: 'Promote full release', needsReview: true }
       ]
     },
-    change: { id: 'error-spike', fact: 'errorRateNormal', value: false, source: 'verified telemetry event', verified: true },
+    change: { id: 'error-spike', fact: 'errorRateNormal', value: false, source: 'verified telemetry event', verified: true, version: 2 },
     rumor: { id: 'error-rumor', fact: 'errorRateNormal', value: false, source: 'unverified chat rumor', verified: false }
   }
 };
@@ -110,6 +110,13 @@ export function observe(input, observation) {
     append(run, 'quarantine', `${observation.source} reported ${observation.fact}=${observation.value}, but the source is unverified. Plan unchanged.`);
     return run;
   }
+  const version = observation.version ?? 1;
+  const latest = run.evidenceVersions?.[observation.fact] ?? 0;
+  if (!Number.isSafeInteger(version) || version <= latest) {
+    append(run, 'stale', `Ignored ${observation.id}: evidence version ${version} does not supersede ${latest}.`);
+    return run;
+  }
+  (run.evidenceVersions ??= {})[observation.fact] = version;
   const before = run.world[observation.fact];
   run.world[observation.fact] = observation.value;
   append(run, 'observation', `${observation.source}: ${observation.fact} changed ${before} → ${observation.value}.`);

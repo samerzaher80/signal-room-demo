@@ -51,3 +51,12 @@ test('state survives serialization with revision trace intact', () => {
   assert.deepEqual(restored, run);
   assert.equal(advance(restored).plan.steps[0].status, 'simulated');
 });
+
+test('older verified evidence cannot undo a newer fact', async () => {
+  const {createRun, observe, scenarios} = await import('../engine.js');
+  const change = scenarios.release.change;
+  const newest = observe(createRun('release'), change);
+  const late = observe(newest, {...change,id:'late-verified',version:1,value:!change.value});
+  assert.deepEqual(late.world,newest.world);
+  assert.deepEqual(late.plan,newest.plan);
+});

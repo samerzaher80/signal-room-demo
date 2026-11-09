@@ -79,6 +79,10 @@ function switchScenario(id) {
 document.querySelectorAll('[data-scenario]').forEach(button => button.addEventListener('click', () => switchScenario(button.dataset.scenario)));
 $('step').addEventListener('click', () => update(advance(run)));
 $('change').addEventListener('click', () => update(observe(run, scenarios[scenarioId].change)));
+$('older').addEventListener('click', () => {
+  const change = scenarios[scenarioId].change;
+  update(observe(run, { ...change, id: 'late-'+change.id, version: 1, value: !change.value }));
+});
 $('rumor').addEventListener('click', () => update(observe(run, scenarios[scenarioId].rumor)));
 $('secondary-change').addEventListener('click', () => update(observe(run, { id: 'alternate-stockout', fact: 'alternateStock', value: false, source: 'verified alternate inventory', verified: true })));
 $('reset').addEventListener('click', () => { localStorage.removeItem(key(scenarioId)); switchScenario(scenarioId); });
